@@ -15,6 +15,20 @@ Inspired by BozoCrack that cracks MD5 hashes by googling for hashes and using th
 Works suprisingly well if you have a large base of hashed passwords and you quickly need a
 possible plaintext. The attack is a bit probabalistic because of googles results, so rerunning the script can yield more results. 
 
+You can use the testhashes file to test the script:
+
+$ python gcrack.py testhashes 
+[+] Hashes loaded, using google_attack to crack them
+md5(qwerty)		d8578edf8458ce06fbc5bb76a58c5ca4
+md5(password)		5f4dcc3b5aa765d61d8327deb882cf99
+md5(alkali)		f7f41ad5328d528a751c55fa2fcf7273
+md5(password09)		8350513a8aff1d5bc1534dbd90747bb8
+sha1(123456)		7c4a8d09ca3762af61e59520943dc26494f8941b
+sha1(security)		8eec7bc461808e0b8a28783d0bec1a3a22eb0821
+md5(admin)		21232f297a57a5a743894a0e4a801fc3
+sha1(crypto)		44a9713350e53858f058463d4bf7f1e542d9ca4b
+[+] Found  8  of  8
+
 Future improvements/TODO:
 1) Add wordlist generation from queries with specific keywords
 2) Better spliting and mangling and joining rules.
