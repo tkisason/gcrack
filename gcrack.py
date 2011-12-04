@@ -6,7 +6,7 @@ import random,time
 from HTMLParser import HTMLParser
 
 __program__ = 'gcrack'
-__url__ = 'http://'
+__url__ = 'https://github.com/tkisason/gcrack'
 __author__ = 'Tonimir Kisasondi <kisasondi@gmail.com>'
 __copyright__ = 'Copyright (c) 2011'
 __license__ = 'GPLv3'
