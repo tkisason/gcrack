@@ -1,0 +1,21 @@
+gcrack 1.0
+by Tonimir Kisasondi <kisasondi@gmail.com>
+Copyright (c) 2011  Released under GPLv3
+
+usage:
+python gcrack.py  [file_with_hashes]
+
+Inspired by BozoCrack that cracks MD5 hashes by googling for hashes and using the resultant query as a wordlist, i wrote this little script to do a similar thing, but with a few improvements:
+
+1) Googles for hash, uses only plaintext data for possible wordlist candidates and hashing
+2) Currently supports following hashes: md5, sha1, sha224, sha256, sha384, sha512
+3) Input file with hashes can be mixed with any type of above supported hashes
+4) If the attack finds the hash, it will even ID the hash for you
+
+Works suprisingly well if you have a large base of hashed passwords and you quickly need a
+possible plaintext. The attack is a bit probabalistic because of googles results, so rerunning the script can yield more results. 
+
+Future improvements/TODO:
+1) Add wordlist generation from queries with specific keywords
+2) Better spliting and mangling and joining rules.
+ 
