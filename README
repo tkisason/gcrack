@@ -1,5 +1,8 @@
-gcrack 1.0
-by Tonimir Kisasondi <kisasondi@gmail.com>
+gcrack 1.1
+by Tonimir Kisasondi <tonimir.kisasondi@foi.hr>
+Faculty of Organization and Informatics
+Open Systems and Security Lab
+
 Copyright (c) 2011  Released under GPLv3
 
 usage:
@@ -14,6 +17,8 @@ Inspired by BozoCrack that cracks MD5 hashes by googling for hashes and using th
 
 Works suprisingly well if you have a large base of hashed passwords and you quickly need a
 possible plaintext. The attack is a bit probabalistic because of googles results, so rerunning the script can yield more results. 
+
+A optional dependancy is python-nltk (natural language toolkit), if you have it the cracking will be faster because only plaintext is used. If you don't, the cracking will be slower because all the html will be used as possible words for wordlist. Installing nltk is easy, just do "pip install nltk" or use your package manager.
 
 You can use the testhashes file to test the script:
 
