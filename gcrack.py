@@ -3,12 +3,7 @@
 import hashlib
 import urllib2
 import random,time
-
-try:                # pip install nltk
-    import nltk
-except:
-    nltk=0
-
+from HTMLParser import HTMLParser
 
 __program__ = 'gcrack'
 __url__ = 'https://github.com/tkisason/gcrack'
@@ -16,6 +11,18 @@ __author__ = 'Tonimir Kisasondi <kisasondi@gmail.com>'
 __copyright__ = 'Copyright (c) 2011'
 __license__ = 'GPLv3'
 __version__ = '1.0'
+
+
+class stripper(HTMLParser):
+    def __init__(self):
+        HTMLParser.__init__(self)
+    def read(self, data):
+        self._lines = []
+        self.reset()
+        self.feed(data)
+        return ''.join(self._lines)
+    def handle_data(self, d):
+        self._lines.append(d)
 
 def hash(data):
     hashes = []
@@ -31,8 +38,8 @@ def get_bag_of_words(query):
     response = urllib2.urlopen(request)
     time.sleep(random.random())
     data = response.read()
-    if nltk:
-        data = nltk.clean_html(data)
+    s = stripper()
+    data = s.read(data)
     data = list(set(data.split()))
     final = []
     for el in data:
