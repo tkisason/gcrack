@@ -20,6 +20,11 @@ def hash(data):
     hashes = []
     for h in hashlib.algorithms:
         hashes.append(h+':'+hashlib.new(h,data).hexdigest())
+    try:
+        hashes.append('ntlm:'+hashlib.new('md4', data.encode('utf-16le','ignore')).hexdigest()) # NTLM
+    except UnicodeDecodeError:
+	pass # ignore errors with decoding unicodes
+        # print "NTLM hash failed: "+data
     return hashes
 
 def get_bag_of_words(query):
