@@ -1,9 +1,13 @@
-gcrack 1.1
+gcrack 1.5
 by Tonimir Kisasondi <tonimir.kisasondi@foi.hr>
 Faculty of Organization and Informatics
 Open Systems and Security Lab
 
 Copyright (c) 2011  Released under GPLv3
+
+Contributors:
+Vlatko Košturjak - Kost (https://github.com/kost)
+
 
 usage:
 python gcrack.py  [file_with_hashes]
@@ -11,14 +15,20 @@ python gcrack.py  [file_with_hashes]
 Inspired by BozoCrack that cracks MD5 hashes by googling for hashes and using the resultant query as a wordlist, i wrote this little script to do a similar thing, but with a few improvements:
 
 1) Googles for hash, uses only plaintext data for possible wordlist candidates and hashing
-2) Currently supports following hashes: md5, sha1, sha224, sha256, sha384, sha512
+2) Currently supports following hashes: md5, sha1, sha224, sha256, sha384, sha512,ntlm
 3) Input file with hashes can be mixed with any type of above supported hashes
-4) If the attack finds the hash, it will even ID the hash for you
+4) If the attack finds the hash, it will even ID the hash algorithm for you
+5) Uses the first page of google search and first 3 results (the contents of the pages) as the worldlist for cracking, well it's slower then pure google or pure [insert_cracking_service here] but as far as i'm concerned, it will give you more cracked hashes.
+6) Generates [file_with_hashes].run file that is a resume/report for all hashes that have been tested or found, if your session breaks, you encounter a captcha or error, simply rerun the script and it will resume cracking. Nice for churning that 3 million hashes dump you found on pastebin ;) 
+7) You can use [file_with_hashes].run file as a handy report. 
+
+Hashes that have not been found will have ??????????\t\t[hash] format in the run file so you can grep with no problem.  
 
 Works suprisingly well if you have a large base of hashed passwords and you quickly need a
 possible plaintext. The attack is a bit probabalistic because of googles results, so rerunning the script can yield more results. 
 
 A optional dependancy is python-nltk (natural language toolkit), if you have it the cracking will be faster because only plaintext is used. If you don't, the cracking will be slower because all the html will be used as possible words for wordlist. Installing nltk is easy, just do "pip install nltk" or use your package manager.
+A MANDATORY dependancy is python-lxml for scraping links in HTML for google results. 
 
 You can use the testhashes file to test the script:
 
@@ -35,6 +45,5 @@ sha1(crypto)		44a9713350e53858f058463d4bf7f1e542d9ca4b
 [+] Found  8  of  8
 
 Future improvements/TODO:
-1) Add wordlist generation from queries with specific keywords
-2) Better spliting and mangling and joining rules.
- 
+1) Smart splitting so it will crack plaintexts with spaces in them (this sucks by all online crack apps) 
+2) E-mail me ;) 
