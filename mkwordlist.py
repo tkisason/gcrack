@@ -10,31 +10,34 @@ def scrape_links_and_wordlistify(links,lower=False,verbose=1):
         try:
             if verbose == 1:
                 print '[+] fetching data from: ',site
-            raw = requests.get(site).content
-            if lower != False:
-                wordlist += list(set(nltk.clean_html(raw).split()))
+            if site.find('http://pastebin.com/') == 0:
+                raw = requests.get(site.replace('http://pastebin.com/','http://pastebin.com/raw.php?i=')).content
             else:
-                wordlist += map(lambda x: string.lower(x),list(set(nltk.clean_html(raw).split())))
+                raw = requests.get(site).content
+            if lower == False:
+                wordlist += list(set(nltk.clean_html(raw).replace('\r','').split()))
+            else:
+                wordlist += map(lambda x: string.lower(x),list(set(nltk.clean_html(raw).replace('\r','').split())))
         except:
             if verbose == 1:
                 print '[-] Skipping url: ',site
     return wordlist 
 
 
-def google_wordlist(queries, results_per_query=10, lower=False, verbose=1):
+def google_wordlist(queries, results_per_query=5, lower=False, verbose=1):
     from google import search
     links = []
     num = 0
     for q in queries:
         try:
-            for link in search(q,stop=results_per_query):
-                if num >= results_per_query:
-                    break
-                links.append(link)
-                num += 1
+            links += [x for x in search(q,stop=results_per_query)][:results_per_query] #quick and dirty, i'd hit that :)
+#            for link in llist:
+#                links.append(link)
+#                num += 1
         except:
             if verbose == 1:
                 print '[-] google fails'
+    links = list(set(links))
     return scrape_links_and_wordlistify(links,lower)
 
 
@@ -53,7 +56,7 @@ if __name__ == '__main__':
     parser.add_argument('KEYWORDS_FILE', help='Load keywords from KEYWORDS_FILE, one line == one search query')
     parser.add_argument('OUTPUT_FILE', help='Your wordlist will be saved/appended to OUTPUT_FILE')
     parser.add_argument('-l','--lowercase', help='Make sure all capitals are LOWERCASE, useful if you will use rules to mutate your wordlist',action='store_true')
-    parser.add_argument('-n','--number', help='Use NUMBER of top google links for scraping instead of default 5 ',type=int, default=10)
+    parser.add_argument('-n','--number', help='Use NUMBER of top google links for scraping instead of default 5 ',type=int, default=5)
     args=parser.parse_args()
     keywords = open(args.KEYWORDS_FILE,'r').read().strip().split("\n")
     print '[+] Googling for keywords'
