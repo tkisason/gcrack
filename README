@@ -19,7 +19,7 @@ use pip to install those dependencies
 gcrack is a set of scripts that helps you crack passwords with google's search. It is composed of the following scripts:
 
 gcrack.py - crack a set of arbitrary hashes with the help of google's search of those hashes
-mkwordlist.py - generate a wordlist based on the the input keywords (generates raw or lowercased wordlist that is great for mutation)
+mkwordlist.py - generate a wordlist based on the the input keywords (generates raw or lowercased wordlist that is great for mutation). Also accepts google dorks / google hacks for even more fun :)
 
 usage: all scripts have helpfiles with -h option 
 
