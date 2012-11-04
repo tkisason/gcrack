@@ -38,5 +38,5 @@ gcrack.py generates [filewithhashes].run file that is a resume/report for all ha
 You can use the testhashes file to test the gcrack.py, it should find all 8 hashes. Gcrack knows to be a bit slow, but it's the same cost to crack about 8 or 80 hashes, so be patient. :)
 
 ###Future improvements/TODO:
-0) This is just a sliver of something far far bigger that's going to be released soon...
-1) E-mail me ;) 
+* This is just a sliver of something far far bigger that's going to be released soon...
+* E-mail me ;) 
