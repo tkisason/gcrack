@@ -22,7 +22,9 @@ gcrack is a set of scripts that helps you crack passwords with google's search. 
 
 	gcrack.py - crack a set of arbitrary hashes with the help of google's search of those hashes.
 	
-	gwordlist.py - generate a wordlist based on the the input keywords file (generates raw or lowercased wordlist that is great for mutation) (this tool was previously named mkwordlist)
+	gwordlist.py - generate a wordlist based on the the input keywords file
+	(generates raw or lowercased wordlist that is great for mutation)
+	(this tool was previously named mkwordlist)
 
 All scripts have helpfiles with -h option, so use the -h flag, but all tools are too simple...
 
