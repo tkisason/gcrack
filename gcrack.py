@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import hashlib
-import mkwordlist #depends on python-google, python-requests, python-nltk
+import gwordlist #depends on python-google, python-requests, python-nltk
 
 def hash(data):
     hashes = []
@@ -26,17 +26,6 @@ def rfile(runfile, option,input=''):
         F.write(input)
         F.close()
         return 1
-
-def old_mutate(wordlist, verbose=1): # simple mutators, you can add yours here...
-    if verbose == 1:
-        print '[+] Adding extra splits... '
-    output = wordlist
-    splits = [':',' ','"','\r']
-    for sp in splits:
-        output += sum(( map(lambda x:x.split(sp),wordlist) ),[])
-    print '[+] Deduplicating list'
-    output = list(set(output))
-    return output
 
 def mutate(wordlist, verbose=1): # simple mutators, you can add yours here...
     if verbose == 1:
@@ -64,7 +53,7 @@ def google_attack(passlist,runfile,rpq,verbose=1):
             skipped_hashes += 1
             if verbose==1:
                 print '[-] Removing already cracked hash: '+pwd
-    wordlist = mkwordlist.google_wordlist(hashlist, results_per_query=rpq, lower=False, verbose=1)
+    wordlist = gwordlist.google_wordlist(hashlist, results_per_query=rpq, lower=False, verbose=1)
     wordlist = mutate(wordlist)
     if verbose == 1:
         print '[+] Cracking...'
