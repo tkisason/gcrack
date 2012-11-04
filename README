@@ -1,4 +1,4 @@
-gcrack 2.0
+# gcrack 2.0
 by Tonimir Kisasondi <tonimir.kisasondi@foi.hr>
 Faculty of Organization and Informatics
 Open Systems and Security Lab
@@ -13,13 +13,15 @@ Mario Vilas and his python-google lib (https://github.com/MarioVilas/google)
 
 Depends on:
 python-nltk, python-google, python-beautifulsoup, python-requests
-use pip to install those dependencies 
+use pip to install those dependencies.
 
+RELEASE NOTE for 2.0: 
+New gcrack and mkwordlist tool with new, cleaner codebase.
 
 gcrack is a set of scripts that helps you crack passwords with google's search. It is composed of the following scripts:
 
 gcrack.py - crack a set of arbitrary hashes with the help of google's search of those hashes
-mkwordlist.py - generate a wordlist based on the the input keywords (generates raw or lowercased wordlist that is great for mutation)
+mkwordlist.py - generate a wordlist based on the the input keywords (generates raw or lowercased wordlist that is great for mutation). Also accepts google dorks / google hacks for even more fun :)
 
 usage: all scripts have helpfiles with -h option 
 
