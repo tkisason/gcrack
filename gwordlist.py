@@ -1,11 +1,20 @@
 #!/usr/bin/python
 
+def freq_an(input,fx={}):
+    for elem in input:
+        if fx.has_key(elem):
+            fx[elem] +=1
+        else:
+            fx[elem] = 1
+    return fx
+
+
 def scrape_links_and_wordlistify(links,lower=False,verbose=1):
     import nltk
     import requests
     import string
     raw = ''
-    wordlist = []
+    wordlist = {}
     for site in links:
         try:
             if verbose == 1:
@@ -15,9 +24,11 @@ def scrape_links_and_wordlistify(links,lower=False,verbose=1):
             else:
                 raw = requests.get(site).content
             if lower == False:
-                wordlist += list(set(nltk.clean_html(raw).replace('\r','').split()))
+                #wordlist += list(set(nltk.clean_html(raw).replace('\r','').split()))
+                freq_an(list(set(nltk.clean_html(raw).replace('\r','').split())),wordlist)
             else:
-                wordlist += map(lambda x: string.lower(x),list(set(nltk.clean_html(raw).replace('\r','').split())))
+                #wordlist += map(lambda x: string.lower(x),list(set(nltk.clean_html(raw).replace('\r','').split())))
+                freq_an(map(lambda x: string.lower(x),list(set(nltk.clean_html(raw).replace('\r','').split()))),wordlist)
         except:
             if verbose == 1:
                 print '[-] Skipping url: ',site
@@ -45,10 +56,11 @@ if __name__ == '__main__':
     __program__ = 'mkwordlist'
     __url__ = 'https://github.com/tkisason/gcrack'
     __author__ = 'Tonimir Kisasondi <kisasondi@gmail.com>'
-    __copyright__ = 'Copyright (c) 2012'
+    __copyright__ = 'Copyright (c) 2012-'
     __license__ = 'GPLv3'
-    __version__ = '0.5'
+    __version__ = '0.6'
     import argparse
+    import operator
     desc = 'Generate custom wordlists based on google queries and screen scrapes of N top links returned by google queries for each keyword'
     print '\n'+__program__+' '+__version__+' by '+__author__+'\n'+__copyright__+' Distributed under '+ __license__+''
     parser = argparse.ArgumentParser(description=desc)
@@ -61,12 +73,12 @@ if __name__ == '__main__':
     keywords = open(args.KEYWORDS_FILE,'r').read().strip().split("\n")
     print '[+] Googling for keywords'
     owl = google_wordlist(keywords,int(args.number),args.lowercase)
-    print '[+] Removing duplicate entries from wordlist'
-    owl = list(set(owl))
+    print '[+] Sorting wordlist according to word probability'
+    sorted_wl = sorted(owl.iteritems(), key=operator.itemgetter(1),reverse=True)
     wl = open(args.OUTPUT_FILE,'a+')
     print '[+] Writing wordlist to :',args.OUTPUT_FILE
-    for line in owl:
-        wl.write(line+'\n')
+    for line in sorted_wl:
+        wl.write(line[0]+'\n')
         wl.flush()
     wl.close()
     print '[+] Done!'
